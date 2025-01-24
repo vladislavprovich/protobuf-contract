@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package auth;
+
+option go_package = "vladislavprovich.sso.v1;ssov1";
+
+// Auth is service for managing permissions and roles.
+service Auth {
+  // Register registers a new user.
+  rpc Register (RegisterRequest) returns (RegisterResponse);
+  // Login logs in a user and returns an auth token.
+  rpc Login (LoginRequest) returns (LoginResponse);
+  // IsAdmin checks whether a user is an admin.
+  rpc IsAdmin (IsAdminRequest) returns (IsAdminResponse);
+  // Logout logs out a user.
+  rpc Logout (LogoutRequest) returns (LogoutResponse);
+}
+
+message RegisterRequest {
+  string email = 1; // User email for registration.
+  string password = 2; // User password for registration.
+}
+
+message RegisterResponse {
+  int64 used_id = 1; // User ID of the registered user.
+}
+
+message LoginRequest {
+  string email = 1; // Email registered user.
+  string password = 2; // Password registered user.
+  int32 app_id = 3; // ID of the app to login to.
+}
+
+message LoginResponse {
+  string token = 1; // Auth token of the logged in user
+}
+
+message IsAdminRequest {
+  int64 user_id = 1; // User ID to validate.
+}
+
+message IsAdminResponse {
+  bool is_admin = 1; // Checking user rights, return true or false.
+}
+
+message LogoutRequest {
+  string token = 1; // JWT token for logout.
+}
+
+message LogoutResponse {
+  bool success = 1; // Checking logout, return true or false.
+}
