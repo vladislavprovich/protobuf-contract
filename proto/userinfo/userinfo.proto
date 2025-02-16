@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package userinfo;
+
+option go_package = "github.com/vladislavprovich/protobufContract/gen/go/userinfo;userinfo";
+
+service UserInfoService {
+  rpc GetUserByID (GetUserRequest) returns (UserResponse);
+  rpc GetUserByEmail (GetUserRequest) returns (UserResponse);
+}
+
+message GetUserRequest {
+  string value = 1; // ID or Email
+}
+
+message UserResponse {
+  string user_id = 1;
+  string email = 2;
+}
