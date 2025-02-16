@@ -27,8 +27,8 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UserInfoServiceClient interface {
-	GetUserByID(ctx context.Context, in *GetUserIDRequest, opts ...grpc.CallOption) (*UserIDResponse, error)
-	GetUserByEmail(ctx context.Context, in *GetUserEmailRequest, opts ...grpc.CallOption) (*UserEmailResponse, error)
+	GetUserByID(ctx context.Context, in *GetUserByIDRequest, opts ...grpc.CallOption) (*UserByIDResponse, error)
+	GetUserByEmail(ctx context.Context, in *GetUserByEmailRequest, opts ...grpc.CallOption) (*UserByEmailResponse, error)
 }
 
 type userInfoServiceClient struct {
@@ -39,9 +39,9 @@ func NewUserInfoServiceClient(cc grpc.ClientConnInterface) UserInfoServiceClient
 	return &userInfoServiceClient{cc}
 }
 
-func (c *userInfoServiceClient) GetUserByID(ctx context.Context, in *GetUserIDRequest, opts ...grpc.CallOption) (*UserIDResponse, error) {
+func (c *userInfoServiceClient) GetUserByID(ctx context.Context, in *GetUserByIDRequest, opts ...grpc.CallOption) (*UserByIDResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(UserIDResponse)
+	out := new(UserByIDResponse)
 	err := c.cc.Invoke(ctx, UserInfoService_GetUserByID_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -49,9 +49,9 @@ func (c *userInfoServiceClient) GetUserByID(ctx context.Context, in *GetUserIDRe
 	return out, nil
 }
 
-func (c *userInfoServiceClient) GetUserByEmail(ctx context.Context, in *GetUserEmailRequest, opts ...grpc.CallOption) (*UserEmailResponse, error) {
+func (c *userInfoServiceClient) GetUserByEmail(ctx context.Context, in *GetUserByEmailRequest, opts ...grpc.CallOption) (*UserByEmailResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(UserEmailResponse)
+	out := new(UserByEmailResponse)
 	err := c.cc.Invoke(ctx, UserInfoService_GetUserByEmail_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -63,8 +63,8 @@ func (c *userInfoServiceClient) GetUserByEmail(ctx context.Context, in *GetUserE
 // All implementations must embed UnimplementedUserInfoServiceServer
 // for forward compatibility.
 type UserInfoServiceServer interface {
-	GetUserByID(context.Context, *GetUserIDRequest) (*UserIDResponse, error)
-	GetUserByEmail(context.Context, *GetUserEmailRequest) (*UserEmailResponse, error)
+	GetUserByID(context.Context, *GetUserByIDRequest) (*UserByIDResponse, error)
+	GetUserByEmail(context.Context, *GetUserByEmailRequest) (*UserByEmailResponse, error)
 	mustEmbedUnimplementedUserInfoServiceServer()
 }
 
@@ -75,10 +75,10 @@ type UserInfoServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedUserInfoServiceServer struct{}
 
-func (UnimplementedUserInfoServiceServer) GetUserByID(context.Context, *GetUserIDRequest) (*UserIDResponse, error) {
+func (UnimplementedUserInfoServiceServer) GetUserByID(context.Context, *GetUserByIDRequest) (*UserByIDResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUserByID not implemented")
 }
-func (UnimplementedUserInfoServiceServer) GetUserByEmail(context.Context, *GetUserEmailRequest) (*UserEmailResponse, error) {
+func (UnimplementedUserInfoServiceServer) GetUserByEmail(context.Context, *GetUserByEmailRequest) (*UserByEmailResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUserByEmail not implemented")
 }
 func (UnimplementedUserInfoServiceServer) mustEmbedUnimplementedUserInfoServiceServer() {}
@@ -103,7 +103,7 @@ func RegisterUserInfoServiceServer(s grpc.ServiceRegistrar, srv UserInfoServiceS
 }
 
 func _UserInfoService_GetUserByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetUserIDRequest)
+	in := new(GetUserByIDRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -115,13 +115,13 @@ func _UserInfoService_GetUserByID_Handler(srv interface{}, ctx context.Context, 
 		FullMethod: UserInfoService_GetUserByID_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserInfoServiceServer).GetUserByID(ctx, req.(*GetUserIDRequest))
+		return srv.(UserInfoServiceServer).GetUserByID(ctx, req.(*GetUserByIDRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _UserInfoService_GetUserByEmail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetUserEmailRequest)
+	in := new(GetUserByEmailRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -133,7 +133,7 @@ func _UserInfoService_GetUserByEmail_Handler(srv interface{}, ctx context.Contex
 		FullMethod: UserInfoService_GetUserByEmail_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserInfoServiceServer).GetUserByEmail(ctx, req.(*GetUserEmailRequest))
+		return srv.(UserInfoServiceServer).GetUserByEmail(ctx, req.(*GetUserByEmailRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

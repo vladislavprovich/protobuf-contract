@@ -5,24 +5,24 @@ package userinfo;
 option go_package = "github.com/vladislavprovich/protobufContract/gen/go/userinfo;userinfo";
 
 service UserInfoService {
-  rpc GetUserByID (GetUserIDRequest) returns (UserIDResponse);
-  rpc GetUserByEmail (GetUserEmailRequest) returns (UserEmailResponse);
+  rpc GetUserByID (GetUserByIDRequest) returns (UserByIDResponse);
+  rpc GetUserByEmail (GetUserByEmailRequest) returns (UserByEmailResponse);
 }
 
-message GetUserIDRequest {
+message GetUserByIDRequest {
   string user_id = 1; // User id.
 }
 
-message GetUserEmailRequest{
-  string email = 1; // User email.
-}
-
-message UserIDResponse {
+message UserByIDResponse {
   string user_id = 1;
   string email = 2;
 }
 
-message UserEmailResponse {
+message GetUserByEmailRequest{
+  string email = 1; // User email.
+}
+
+message UserByEmailResponse {
   string user_id = 1;
   string email = 2;
 }
