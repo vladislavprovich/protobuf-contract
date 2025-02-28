@@ -1,4 +1,4 @@
-module github.com/vladislavprovich/protobufContract
+module github.com/vladislavprovich/protobuf-contract
 
 go 1.23.2
 
