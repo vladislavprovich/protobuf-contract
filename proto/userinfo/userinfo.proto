@@ -2,7 +2,9 @@ syntax = "proto3";
 
 package userinfo;
 
-option go_package = "github.com/vladislavprovich/protobufContract/gen/go/userinfo;userinfo";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/vladislavprovich/protobuf-contract/gen/go/userinfo;userinfo";
 
 service UserInfoService {
   rpc GetUserByID (GetUserByIDRequest) returns (UserByIDResponse);
@@ -16,6 +18,8 @@ message GetUserByIDRequest {
 message UserByIDResponse {
   string user_id = 1;
   string email = 2;
+  google.protobuf.Timestamp created_at = 3;
+  google.protobuf.Timestamp updated_at = 4;
 }
 
 message GetUserByEmailRequest{
@@ -25,4 +29,6 @@ message GetUserByEmailRequest{
 message UserByEmailResponse {
   string user_id = 1;
   string email = 2;
+  google.protobuf.Timestamp created_at = 3;
+  google.protobuf.Timestamp updated_at = 4;
 }
