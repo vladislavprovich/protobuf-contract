@@ -16,6 +16,8 @@ message GetUserByIDRequest {
 message UserByIDResponse {
   string user_id = 1;
   string email = 2;
+  string created_at = 3;
+  string updated_at = 4;
 }
 
 message GetUserByEmailRequest{
@@ -25,4 +27,6 @@ message GetUserByEmailRequest{
 message UserByEmailResponse {
   string user_id = 1;
   string email = 2;
+  string created_at = 3;
+  string updated_at = 4;
 }
