@@ -12,11 +12,11 @@ service UserInfoService {
 }
 
 message GetUserByIDRequest {
-  string user_id = 1; // User id.
+  int64 user_id = 1; // User id.
 }
 
 message UserByIDResponse {
-  string user_id = 1;
+  int64 user_id = 1;
   string email = 2;
   google.protobuf.Timestamp created_at = 3;
   google.protobuf.Timestamp updated_at = 4;
@@ -27,7 +27,7 @@ message GetUserByEmailRequest{
 }
 
 message UserByEmailResponse {
-  string user_id = 1;
+  int64 user_id = 1;
   string email = 2;
   google.protobuf.Timestamp created_at = 3;
   google.protobuf.Timestamp updated_at = 4;
